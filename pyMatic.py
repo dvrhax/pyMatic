@@ -10,11 +10,13 @@ class iMatic():
         self.tail = b'\x5D'
 
     def connect(self):
+        #http://stackoverflow.com/questions/16772465/how-to-use-socket-in-python-as-a-context-manager
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((self.host,self.port))
         return s
 
     def changeState(self, relay, state):
+        #http://stackoverflow.com/questions/2719017/how-to-set-timeout-on-pythons-socket-recv-method
         msg = self.head + relay + state + self.tail
         s = self.connect()
         s.sendall(msg)
